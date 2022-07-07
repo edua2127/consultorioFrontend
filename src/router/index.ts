@@ -53,8 +53,41 @@ const routes: Array<RouteRecordRaw> = [
     path: '/paciente/form/:model/:id',
     name: 'paciente-detalhar',
     props: (router) => ({ id: router.params.id, model: router.params.model }),
-    component: () => import(/* webpackChunkName: "list" */ '../views/paciente/paciente-form.vue')
+    component: () => import(/* webpackChunkName: "list" */ '../views/secretaria/secretaria-form.vue')
   },
+  {
+    path: '/secretaria/listar',
+    name: 'secretaria-listar',
+    component: () => import(/* webpackChunkName: "list" */ '../views/secretaria/secretaria-list.vue')
+  },
+  {
+    path: '/secretaria/form',
+    name: 'secretaria-form',
+    component: () => import(/* webpackChunkName: "list" */ '../views/secretaria/secretaria-form.vue')
+  },
+  {
+    path: '/secretaria/form/:model/:id',
+    name: 'secretaria-detalhar',
+    props: (router) => ({ id: router.params.id, model: router.params.model }),
+    component: () => import(/* webpackChunkName: "list" */ '../views/secretaria/secretaria-form.vue')
+  },
+  {
+    path: '/medico/listar',
+    name: 'medico-listar',
+    component: () => import(/* webpackChunkName: "list" */ '../views/medico/medico-list.vue')
+  },
+  {
+    path: '/medico/form',
+    name: 'medico-form',
+    component: () => import(/* webpackChunkName: "list" */ '../views/medico/medico-form.vue')
+  },
+  {
+    path: '/medico/form/:model/:id',
+    name: 'medico-detalhar',
+    props: (router) => ({ id: router.params.id, model: router.params.model}),
+    component: () => import(/* webpackChunkName: "list" */ '../views/medico/medico-form.vue')
+  },
+
 ]
 
 const router = createRouter({

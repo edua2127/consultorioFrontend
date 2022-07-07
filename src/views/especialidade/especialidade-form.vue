@@ -119,7 +119,7 @@ export default class EspecialidadeForm extends Vue {
     this.especialidadeClient.cadastrar(this.especialidade)
         .then(
             success => {
-              this.notification = this.notification.new(true, 'notification is-success', 'Especialidade foi Cadastrada com sucesso!!!')
+              this.notification = this.notification.new(true, 'notification is-success', 'Sucesso: ' + success)
               console.log(this.especialidade)
               this.onClickLimpar()
             }, error => {
@@ -131,7 +131,7 @@ export default class EspecialidadeForm extends Vue {
 
   private onClickEditar(): void {
     this.especialidadeClient.editar(this.especialidade).then(success => {
-      this.notification = this.notification.new(true, 'notification is-success', 'Especialidade foi Editada com sucesso!!!')
+      this.notification = this.notification.new(true, 'notification is-success', 'Sucesso: ' + success)
     }, error => {
       this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
     })
@@ -139,7 +139,7 @@ export default class EspecialidadeForm extends Vue {
 
   private onClickDeletar(): void {
     this.especialidadeClient.desativar(this.especialidade).then(sucess => {
-      this.notification = this.notification.new(true, 'notification is-success', 'Especialidade foi Desativada com sucesso!!!')
+      this.notification = this.notification.new(true, 'notification is-success', 'Sucesso: ' + sucess)
     }, error => {
       this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
     })

@@ -22,8 +22,8 @@
           <p class="menu-label"> Pessoas </p>
           <ul class="menu-list">
             <li><router-link to="/paciente/listar">Paciente</router-link></li>
-            <li><a>Médico</a></li>
-            <li><a>Secretaria</a></li>
+            <li><router-link to="/medico/listar">Medico</router-link></li>
+            <li><router-link to="/secretaria/listar">Secretaria</router-link></li>
           </ul>
 
           <p class="menu-label"> Administração </p>

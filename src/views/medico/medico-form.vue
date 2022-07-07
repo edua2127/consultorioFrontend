@@ -17,16 +17,16 @@
   <div class="columns" v-if="modoVisualizacao === 'detalhar'">
     <div class="column is-12 is-size-3">
       <label class="label">
-        <input v-model="paciente.ativo" disabled checked type="checkbox">
-        Ativar paciente
+        <input v-model="medico.ativo" disabled checked type="checkbox">
+        Ativar medico
       </label>
     </div>
   </div>
   <div class="columns" v-else>
     <div class="column is-12 is-size-3">
       <label class="label">
-        <input v-model="paciente.ativo" checked type="checkbox">
-        Ativar paciente
+        <input v-model="medico.ativo" checked type="checkbox">
+        Ativar medico
       </label>
     </div>
   </div>
@@ -35,27 +35,29 @@
     <div class="column is-12 is-size-3">
       <label class="label">Nome</label>
       <div class="control">
-        <input class="input is-primary" type="text" v-model="paciente.nome" :readonly="modoVisualizacao === 'detalhar'"
-               placeholder="Nome do Paciente">
+        <input class="input is-primary" type="text" v-model="medico.nome"
+               :readonly="modoVisualizacao === 'detalhar'"
+               placeholder="Nome do medico">
       </div>
     </div>
   </div>
+
 
   <div class="columns">
     <div class="column is-6 is-size-3">
       <label class="label">Telefone</label>
       <div class="control">
-        <input class="input is-primary" type="text" v-model="paciente.telefone"
+        <input class="input is-primary" type="text" v-model="medico.telefone"
                :readonly="modoVisualizacao === 'detalhar'"
-               placeholder="Numero de Telefone do Paciente">
+               placeholder="Numero de Telefone do medico">
       </div>
     </div>
     <div class="column is-6 is-size-3">
       <label class="label">Celular</label>
       <div class="control">
-        <input class="input is-primary" type="text" v-model="paciente.celular"
+        <input class="input is-primary" type="text" v-model="medico.celular"
                :readonly="modoVisualizacao === 'detalhar'"
-               placeholder="Numero de Celular do Paciente">
+               placeholder="Numero de Celular do medico">
       </div>
     </div>
   </div>
@@ -64,18 +66,19 @@
     <div class="column is-6 is-size-3">
       <label class="label">Nacionalidade</label>
       <div class="control">
-        <input class="input is-primary" type="text" v-model="paciente.nacionalidade"
+        <input class="input is-primary" type="text" v-model="medico.nacionalidade"
                :readonly="modoVisualizacao === 'detalhar'"
-               placeholder="Nacionalidade do Paciente">
+               placeholder="Nacionalidade do medico">
       </div>
     </div>
     <div class="column is-6">
       <label class="label">Sexo</label>
       <div class="select is-fullwidth">
-        <select class="input is-primary" v-model="paciente.sexo" disabled v-if="modoVisualizacao === 'detalhar'">
+        <select class="input is-primary" v-model="medico.sexo"
+                disabled v-if="modoVisualizacao === 'detalhar'">
           <option>Entre no modo de Edição</option>
         </select>
-        <select class="input is-primary" v-model="paciente.sexo" v-else>
+        <select class="input is-primary" v-model="medico.sexo" v-else>
           <option value="MASCULINO">Masculino</option>
           <option value="FEMININO">Feminino</option>
           <option value="OUTROS">Outros</option>
@@ -88,15 +91,20 @@
     <div class="column is-6 is-size-3">
       <label class="label">CPF</label>
       <div class="control">
-        <input class="input is-primary" type="text" v-model="paciente.cpf" placeholder="CPF do Paciente"
+        <input class="input is-primary" type="text" v-model="medico.cpf"
+               placeholder="CPF do medico"
                :readonly="modoVisualizacao === 'detalhar'">
       </div>
     </div>
-    <div class="column is-6 is-size-3">
-      <label class="label">RG</label>
-      <div class="control">
-        <input class="input is-primary" type="text" v-model="paciente.rg" placeholder="RG do Paciente"
-               :readonly="modoVisualizacao === 'detalhar'">
+    <div class="column is-6">
+      <label class="label">Especialidade</label>
+      <div class="select is-fullwidth">
+        <select class="input is-primary" v-if="modoVisualizacao === 'detalhar'">
+          <option>Modo Detalhar</option>
+        </select>
+        <select class="input is-primary" v-model="medico.especialidade" v-else>
+          <option :value="item" v-for="item in especialidadeList" :key="item.id">{{ item.nome }}</option>
+        </select>
       </div>
     </div>
   </div>
@@ -106,14 +114,16 @@
     <div class="column is-6 is-size-3">
       <label class="label">Email</label>
       <div class="control">
-        <input class="input is-primary" type="text" v-model="paciente.email" placeholder="Email do Paciente"
+        <input class="input is-primary" type="text" v-model="medico.email"
+               placeholder="Email do medico"
                :readonly="modoVisualizacao === 'detalhar'">
       </div>
     </div>
     <div class="column is-6 is-size-3">
       <label class="label">Login</label>
       <div class="control">
-        <input class="input is-primary" type="text" v-model="paciente.login" placeholder="Login do Paciente"
+        <input class="input is-primary" type="text" v-model="medico.login"
+               placeholder="Login do medico"
                :readonly="modoVisualizacao === 'detalhar'">
       </div>
     </div>
@@ -123,59 +133,55 @@
     <div class="column is-12 is-size-3">
       <label class="label">Senha</label>
       <div class="control">
-        <input class="input is-primary" type="text" v-model="paciente.senha" placeholder="Senha do Paciente"
+        <input class="input is-primary" type="text" v-model="medico.senha"
+               placeholder="Senha do medico"
                :readonly="modoVisualizacao === 'detalhar'">
       </div>
     </div>
   </div>
 
   <div class="columns">
-    <div class="column is-6">
-      <label class="label">Tipo de Atendimento</label>
-      <div class="select is-fullwidth">
-        <select v-if="modoVisualizacao === 'detalhar'">
-          <option> Entre no Modo de Edição</option>
-        </select>
-        <select class="input is-primary" v-model="paciente.tipoAtendimento" v-else>
-          <option value="PARTICULAR">Particular</option>
-          <option value="CONVENIO">Convenio</option>
-        </select>
+    <div class="column is-6 is-size-3">
+      <label class="label">CRM</label>
+      <div class="control">
+        <input class="input is-primary" type="text" v-model="medico.crm"
+               placeholder="CRM do medico"
+               :readonly="modoVisualizacao === 'detalhar'">
       </div>
     </div>
-    <div class="column is-6">
-      <label class="label">Convenio</label>
-      <div class="select is-fullwidth">
-        <select class="input is-primary" v-if="modoVisualizacao === 'detalhar'">
-          <option>Modo Detalhar</option>
-        </select>
-        <select class="input is-primary" v-model="paciente.convenio" v-else>
-          <option :value="item" v-for="item in conveniosList" :key="item.id">{{ item.nome }}</option>
-        </select>
+    <div class="column is-6 is-size-3">
+      <label class="label">Porcentagem de Partificipação</label>
+      <div class="control">
+        <input class="input is-primary" type="number" v-model="medico.porcentParticipacao"
+               placeholder="Porcentagem de partifipacao do medico"
+               :readonly="modoVisualizacao === 'detalhar'">
       </div>
     </div>
   </div>
   <div class="columns">
     <div class="column is-6 is-size-3">
-      <label class="label">Numero do Cartao do Convenio</label>
+      <label class="label">Consultorio do Medico</label>
       <div class="control">
-        <input class="input is-primary" type="text" v-model="paciente.numeroCartaoConvenio"
-               :readonly="modoVisualizacao === 'detalhar'"
-               placeholder="Numero do Cartao do Convenio">
+        <input class="input is-primary" type="text" v-model="medico.consultorio"
+               placeholder="RG do medico"
+               :readonly="modoVisualizacao === 'detalhar'">
       </div>
     </div>
     <div class="column is-6 is-size-3">
-      <label class="label">Data de Vencimento</label>
+      <label class="label">RG</label>
       <div class="control">
-        <input class="input is-primary" type="datetime-local" v-model="paciente.dataVencimento"
-               :readonly="modoVisualizacao === 'detalhar'"
-               placeholder="Data de Vencimento">
+        <input class="input is-primary" type="text" v-model="medico.rg"
+               placeholder="Consultorio do medico"
+               :readonly="modoVisualizacao === 'detalhar'">
       </div>
     </div>
   </div>
+
+
   <div class="columns" v-if="modoVisualizacao==='detalhar'">
     <div class="column is-6"></div>
     <div class="column is-2">
-      <router-link to="/paciente/listar">
+      <router-link to="/medico/listar">
         <button class="button is-fullwidth">Voltar</button>
       </router-link>
     </div>
@@ -189,7 +195,7 @@
   <div class="columns" v-if="modoVisualizacao==='editar'">
     <div class="column is-6"></div>
     <div class="column is-2">
-      <router-link to="/paciente/listar">
+      <router-link to="/medico/listar">
         <button class="button is-fullwidth">Voltar</button>
       </router-link>
     </div>
@@ -204,7 +210,7 @@
   <div class="columns" v-if="modoVisualizacao === 'cadastrar'">
     <div class="column is-8"></div>
     <div class="column is-2">
-      <router-link to="/paciente/listar">
+      <router-link to="/medico/listar">
         <button class="button is-fullwidth">Voltar</button>
       </router-link>
     </div>
@@ -212,28 +218,31 @@
       <button class="button is-fullwidth is-success" @click="onClickCadastrar()">Cadastrar</button>
     </div>
   </div>
+
+
 </template>
 
 <script lang="ts">
 import {Vue} from 'vue-class-component';
-import {Paciente} from "@/model/paciente.model";
+import {Medico} from "@/model/medico.model";
 import {Notification} from "@/model/notification";
-import {PacientClient} from "@/client/paciente.client";
-import {PageRequest} from '@/model/page/page-request'
-import {PageResponse} from '@/model/page/page-response'
-import {Convenio} from '@/model/convenio.model'
-import {ConveniosClient} from '@/client/convenios.client'
-import {Prop} from "vue-property-decorator";
+import {MedicoClient} from "@/client/medicoClient";
+import {PageResponse} from "@/model/page/page-response";
+import {PageRequest} from "@/model/page/page-request";
+import {Especialidade} from "@/model/especialidade";
+import {EspecialidadeClient} from "@/client/especialidade.client";
+import {Prop} from 'vue-property-decorator'
 
 
-export default class PacienteForm extends Vue {
-  private pacienteClient!: PacientClient
-  private paciente: Paciente = new Paciente()
+export default class MedicoForm extends Vue {
+  private medicoClient!: MedicoClient
+  private medico: Medico = new Medico()
   private notification: Notification = new Notification()
-  private conveniosList: Convenio[] = []
+  private especialidadeList: Especialidade[] = []
   private pageRequest: PageRequest = new PageRequest()
-  private pageResponse: PageResponse<Convenio> = new PageResponse<Convenio>()
-  private convenioClient!: ConveniosClient
+  private pageResponse: PageResponse<Especialidade> = new PageResponse<Especialidade>()
+  private especialidadeClient!: EspecialidadeClient
+
   @Prop({type: Number, required: false})
   private readonly id!: number
   @Prop({type: String, default: false})
@@ -241,52 +250,16 @@ export default class PacienteForm extends Vue {
   private modoVisualizacao = 'detalhar'
 
   public mounted(): void {
-    this.pacienteClient = new PacientClient()
-    this.convenioClient = new ConveniosClient()
-    this.carregarPaciente()
-    this.listarConvenios()
+    this.medicoClient = new MedicoClient()
+    this.especialidadeClient = new EspecialidadeClient()
+    this.carregarMedico()
+    this.listarEspecialidades()
   }
 
-  private listarConvenios(): void {
-    this.convenioClient.findByFiltrosPaginado(this.pageRequest)
-        .then(
-            success => {
-              this.pageResponse = success
-              this.conveniosList = this.pageResponse.content
-              console.log(this.conveniosList)
-            },
-            error => console.log(error)
-        )
-  }
-
-  private onClickSairModoDetalhar(): void {
-    this.modoVisualizacao = 'editar'
-  }
-
-  private onClickCadastrar(): void {
-    this.pacienteClient.cadastrar(this.paciente).then(
-        sucess => {
-          this.notification = this.notification.new(true, 'notification is-success', 'Paciente foi Cadastrado com sucesso!!!')
-          console.log(this.paciente)
-          this.onClickLimpar()
-        }, error => {
-          this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
-          console.log(this.paciente)
-        })
-  }
-
-  private onClickEditar(): void {
-    this.pacienteClient.editar(this.paciente).then(success => {
-      this.notification = this.notification.new(true, 'notification is-success', 'Paciente foi Editado com sucesso!!!')
-    }, error => {
-      this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
-    })
-  }
-
-  private carregarPaciente(): void {
+  private carregarMedico(): void {
     if (this.model === 'detalhar') {
-      this.pacienteClient.findById(this.id).then(value => {
-        this.paciente = value
+      this.medicoClient.findById(this.id).then(value => {
+        this.medico = value
       }).catch(reason => {
         this.notification = reason
         console.log(this.notification)
@@ -296,10 +269,37 @@ export default class PacienteForm extends Vue {
     }
   }
 
+  private listarEspecialidades(): void {
+    this.especialidadeClient.findByFiltrosPaginado(this.pageRequest).then(
+        value => {
+          this.pageResponse = value
+          this.especialidadeList = this.pageResponse.content
+          console.log(this.especialidadeList)
+        },
+        error => console.log(error)
+    )
+  }
+
+  private onClickSairModoDetalhar(): void {
+    this.modoVisualizacao = 'editar'
+  }
+
+  private onClickCadastrar(): void {
+    this.medicoClient.cadastrar(this.medico).then(
+        sucess => {
+          this.notification = this.notification.new(true, 'notification is-success', 'sucesso: ' + sucess)
+          console.log(this.medico)
+          this.onClickLimpar()
+        }, error => {
+          this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
+          console.log(this.medico)
+        }
+    )
+  }
 
   private onClickDeletar(): void {
-    this.pacienteClient.desativar(this.paciente).then(sucess => {
-      this.notification = this.notification.new(true, 'notification is-success', 'Paciente foi Desativada com sucesso!!!')
+    this.medicoClient.desativar(this.medico).then(sucess => {
+      this.notification = this.notification.new(true, 'notification is-success', 'Sucesso: ' + sucess)
     }, error => {
       this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
     })
@@ -309,11 +309,22 @@ export default class PacienteForm extends Vue {
     this.notification = new Notification()
   }
 
+  private onClickEditar(): void {
+    this.medicoClient.editar(this.medico).then(
+        sucesso => {
+          this.notification = this.notification.new(true, 'notification is-success', 'Sucesso: ' + sucesso)
+        }, error => {
+          this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
+        }
+    )
+  }
+
   private onClickLimpar(): void {
-    this.paciente = new Paciente()
+    this.medico = new Medico()
   }
 }
 </script>
+
 
 <style scoped>
 

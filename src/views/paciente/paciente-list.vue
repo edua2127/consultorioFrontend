@@ -35,7 +35,7 @@
       <tr v-for="item in pacienteList" :key="item.id">
         <td> {{item.id}}</td>
         <th>
-          <span v-if="item.ativo == true" class="tag is-success"> Ativo </span>
+          <span v-if="item.ativo" class="tag is-success"> Ativo </span>
           <span v-if="!item.ativo" class="tag is-danger"> Inativo </span>
         </th>
         <td> {{item.nome}}</td>

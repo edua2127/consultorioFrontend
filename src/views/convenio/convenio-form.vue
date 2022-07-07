@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column is-12 is-size-3">
-      Modo de visualização: {{modoVisualizacao}}
+      Modo de visualização: {{ modoVisualizacao }}
     </div>
   </div>
   <hr/>
@@ -125,11 +125,13 @@ export default class ConvenioForm extends Vue {
   private onClickCadastrar(): void {
     this.convenioClient.cadastrar(this.convenio).then(
         success => {
-          this.notification = this.notification.new(true, 'notification is-success', 'Convenio foi Cadastrado com sucesso!!!')
+          this.notification = this.notification.new(true, 'notification is-success',
+              'Convenio foi Cadastrado com sucesso!!!')
           console.log(this.convenio)
           this.onClickLimpar()
         }, error => {
-          this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
+          this.notification = this.notification.new(true, 'notification is-danger',
+              'Error: ' + error)
           console.log(this.convenio)
           this.onClickLimpar()
         })
@@ -150,7 +152,8 @@ export default class ConvenioForm extends Vue {
 
   private onClickEditar(): void {
     this.convenioClient.editar(this.convenio).then(sucess => {
-      this.notification = this.notification.new(true, 'notification is-success', 'Convenio foi editado com sucesso!!!')
+      this.notification = this.notification.new(true, 'notification is-success',
+          'Convenio foi editado com sucesso!!!')
     }, error => {
       this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
     })
@@ -158,9 +161,11 @@ export default class ConvenioForm extends Vue {
 
   private onClickDesativar(): void {
     this.convenioClient.desativar(this.convenio).then(sucess => {
-      this.notification = this.notification.new(true, 'notification is-success', 'Convenio foi desativado com sucesso!!!')
+      this.notification = this.notification.new(true, 'notification is-success',
+          'Convenio foi desativado com sucesso!!!')
     }, error => {
-      this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
+      this.notification = this.notification.new(true, 'notification is-danger',
+          'Error: ' + error)
     })
   }
 
